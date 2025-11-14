@@ -6,24 +6,28 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Enque two items with different priorities and dequeue them
+    // Expected Result: First dequeued item is the one with the higher priority
+    // Defect(s) Found: Skipped index in Dequeue method's for loop
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Low priority", 1);
+        priorityQueue.Enqueue("High priority", 5);
+        var firstOut = priorityQueue.Dequeue();
+        Assert.AreEqual("High priority", firstOut);
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Enque two items with the same priority and dequeue them
+    // Expected Result: Items are dequeued in the order they were enqueued
+    // Defect(s) Found: Used >= instead of > in Dequeue method's priority comparison
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("First in", 3);
+        priorityQueue.Enqueue("Second in", 3);
+        var firstOut = priorityQueue.Dequeue();
+        Assert.AreEqual("First in", firstOut);
     }
-
-    // Add more test cases as needed below.
 }
