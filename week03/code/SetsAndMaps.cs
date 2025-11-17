@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,33 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        List<string> result = new List<string>();
+        HashSet<int> seen = new HashSet<int>();
+
+        foreach (string word in words)
+        {
+            char c1 = word[0];
+            char c2 = word[1];
+
+            // Skip words with same characters
+            if (c1 == c2)
+                continue;
+
+            // Use integer representation for faster hashing/comparison
+            int wordHash = (c1 << 16) | c2;
+            int symmetricHash = (c2 << 16) | c1;
+
+            if (seen.Contains(symmetricHash))
+            {
+                result.Add($"{(char)(symmetricHash >> 16)}{(char)(symmetricHash & 0xFFFF)} & {word}");
+                seen.Remove(symmetricHash);
+            }
+            else
+            {
+                seen.Add(wordHash);
+            }
+        }
+        return result.ToArray();
     }
 
     /// <summary>
